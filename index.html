@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+1
+    <head>
+        <meta charset="utf-8">
+        <title>图片轮播效果</title>
+        <style>
+            *{padding: 0;margin: 0;}
+            ul{list-style: none;}
+            .out{width: 291px;height: 163px;border: 5px solid #000;margin:50px auto;position: relative;}
+            .out .img li{position: absolute;top:0;left:0;display:none;}
+            .out .num{position: absolute;bottom:20px;margin:0 3px;left: 0;font-size: 0px;text-align: center;width: 100%;}
+            .out .num li{width: 20px;height: 20px;background: #666;color: #fff;text-align: center;line-height: 20px;border-radius: 50%;display: inline-block;font-size: 16px;cursor: pointer;}
+            .out .btn{position: absolute;top:45%;width:18px;height:30px;background: rgba(0,0,0,0.5);color: #fff;text-align: center;font-size: 20px;}
+            .out:hover .btn{display: block;}
+            .out .left{left:0;display: none;cursor: pointer;}
+            .out .right{right:0;display: none;cursor: pointer;}
+            .out .num li.active{background: #a00;}
+        </style>
+    <script src="jquery-3.2.1.js"></script>
+    </head>
+    <body>
+     <div class="out">
+        <ul class="img">
+            <li><a href="#"><img src="img\1.jpg" alt=""></a></li>
+            <li><a href="#"><img src="img\2.jpg" alt=""></a></li>
+            <li><a href="#"><img src="img\3.jpg" alt=""></a></li>
+            <li><a href="#"><img src="img\4.jpg" alt=""></a></li>
+        </ul>
+        <ul class="num">
+            <li class="active">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+        <div class="left btn" ><</div>
+        <div class="right btn">></div>
+     </div> 
+
+        <script>
+         $(function(){
+		 //手动控制轮播
+            $(".img li").eq(0).show();
+          $(".num li").mouseover(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+            var index=$(this).index();
+            $(".img li").eq(index).fadeIn(300).siblings().fadeOut(300);
+
+          }) 
+		
+		  $(".out .left").click(function(){
+			showLast();
+		  })
+		  $(".out .right").click(function(){
+			showNext();
+		  })
+		  //自动控制轮播
+		  var i=0;
+		  var t=setInterval(showNext,15000);
+		  function showNext(){
+			if (i==3){
+			i=0;
+			}else{
+			i++;
+			}
+		  index=i
+			$(".img li").eq(index).fadeIn(300).siblings().fadeOut(300);
+			$(".num li").eq(index).addClass("active").siblings().removeClass("active");
+		  }
+		   function showLast(){
+			if (i==0){
+			i=3;
+			}else{
+			i--;
+			}
+		  index=i
+			$(".img li").eq(index).fadeIn(300).siblings().fadeOut(300);
+			$(".num li").eq(index).addClass("active").siblings().removeClass("active");
+		  }
+     })     
+        </script>
+    </body>
+</html>
